@@ -3,7 +3,7 @@ function zombie(y) {
   //initial x so all zombies start to the left of the screen
   this.x = -10;
   this.y = y;
-  this.health = 5;
+  this.health = 0;
   //set a random speed
   this.speed = random(0.2, 0.5);
 
@@ -19,25 +19,28 @@ function zombie(y) {
     //head
     fill(50);
     ellipse(this.x, this.y, 50);
-    //health
-    fill(255)
-    text(this.health,this.x,this.y)
     pop();
   };
 
-  this.clicked = function(x,y){
-        let d = dist(x, y, this.x, this.y);
-        if (d < 25) {
-          this.health -= 1;
-        }
-  }
+  this.clicked = function (x, y) {
+    let d = dist(x, y, this.x, this.y);
+    if (d < 25) {
+      this.health -= 1;
+    }
+  };
 
   //update the zombies x location as it lumbers across the screen
   this.updateLocation = function () {
     this.x += this.speed;
-    if (this.x>width){
-        fill(0)
-        text("You Lose!!", width/2,height/2)
+    if (this.x > width) {
+      this.x = -10;
+    }
+  };
+
+  this.mouseOver = function () {
+    let d = dist(mouseX, mouseY, this.x, this.y);
+    if (d < 25) {
+      return true;
     }
   };
 }
